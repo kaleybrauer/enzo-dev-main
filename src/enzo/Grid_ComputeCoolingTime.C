@@ -165,6 +165,26 @@ int grid::ComputeCoolingTime(float *cooling_time, int CoolingTimeOnly)
     aUnits  = 1.0;
   }
   float afloat = float(a);
+
+  /* assign heating rates - set to Null pointers if not used */
+  if (IndividualStarFUVHeating){
+    float EnergyUnits = DensityUnits * VelocityUnits * VelocityUnits;
+
+    int PeNum = FindField( PeHeatingRate, this->FieldType, this->NumberOfBaryonFields);
+
+    // send to Grackle in CGS
+    volumetric_heating_rate = new float[size];
+    specific_heating_rate   = NULL;
+
+    /* convert to cgs */
+    for( i = 0; i < size; i ++){
+      volumetric_heating_rate[i] = BaryonField[PeNum][i] * (EnergyUnits/TimeUnits); // convert to CGS
+    }
+
+  } else{
+    volumetric_heating_rate = NULL;
+    specific_heating_rate   = NULL;
+  }
  
   /* Metal cooling codes. */
  

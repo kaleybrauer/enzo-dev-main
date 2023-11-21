@@ -179,7 +179,9 @@ const field_type
   ImPsi = 102,
   FDMDensity = 103,
 
-  FieldUndefined  = 104;
+  PeHeatingRate = 104,
+
+  FieldUndefined  = 105;
 
 /*
 enum field_type {Density, TotalEnergy, InternalEnergy, Pressure,
